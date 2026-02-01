@@ -5,65 +5,178 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Card Example</title>
     <style>
-      :root{
-        --bg:#f3f6fb;
-        --card:#ffffff;
-        --muted:#6b7280;
-        --accent:#2563eb;
-        --radius:12px;
-        --shadow:0 6px 18px rgba(15,23,42,0.08);
+      :root {
+        --bg: #f3f6fb;
+        --card: #ffffff;
+        --muted: #6b7280;
+        --accent: #2563eb;
+        --radius: 12px;
+        --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
       }
-      html,body{height:100%;}
-      body{
-        margin:0;
-        font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-        background:linear-gradient(180deg,var(--bg),#fff);
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        padding:48px;
-        color:#111827;
+      html,
+      body {
+        height: 100%;
       }
-      .card-wrap{max-width:980px;width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
-      .card{
-        background:var(--card);
-        border-radius:var(--radius);
-        box-shadow:var(--shadow);
-        padding:20px;
-        display:flex;
-        flex-direction:column;
-        gap:12px;
-        transition:transform .18s ease,box-shadow .18s ease;
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial;
+        background: linear-gradient(180deg, var(--bg), #fff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+        color: #111827;
       }
-      .card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(15,23,42,0.12);}
-      .card-hero{height:140px;border-radius:10px;background:linear-gradient(135deg,#e6f0ff,#f6f9ff);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700}
-      .card-title{font-size:1.05rem;font-weight:600;margin:0}
-      .card-desc{color:var(--muted);font-size:0.95rem;margin:0}
-      .card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-      .card-cta{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
-      .card-cta:focus{outline:3px solid rgba(37,99,235,0.18)}
-      .secondary{background:transparent;color:var(--accent);border:1px solid rgba(37,99,235,0.12)}
-      @media (max-width:420px){body{padding:20px}.card-hero{height:110px}}
+
+      .card-wrap {
+        max-width: 980px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
+        border: 1px solid rgba(15, 23, 42, 0.04);
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+      }
+
+      /* Media area (icon or image). For images this area is full-bleed with no spacing */
+      .card-media {
+        width: 100%;
+        display: block;
+      }
+      .card-media.icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 140px;
+        background: linear-gradient(135deg, #e6f0ff, #f6f9ff);
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .card-media.image img {
+        display: block;
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      /* Content area keeps the card padding separate from media */
+      .card-content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .card-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0;
+      }
+      .card-desc {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin: 0;
+      }
+      .card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: auto;
+      }
+      .card-cta {
+        background: var(--accent);
+        color: #fff;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 0;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .card-cta:focus {
+        outline: 3px solid rgba(37, 99, 235, 0.18);
+      }
+      .secondary {
+        background: transparent;
+        color: var(--accent);
+        border: 1px solid rgba(37, 99, 235, 0.12);
+      }
+
+      @media (max-width: 420px) {
+        body {
+          padding: 20px;
+        }
+        .card-media.icon,
+        .card-media.image img {
+          height: 110px;
+        }
+      }
     </style>
   </head>
   <body>
     <main class="card-wrap">
       <article class="card" role="article" aria-labelledby="card1-title">
-        <div class="card-hero" aria-hidden="true">ICON</div>
-        <h2 id="card1-title" class="card-title">Build beautiful UIs faster</h2>
-        <p class="card-desc">A concise card component pattern with clear hierarchy — title, description, and a prominent call-to-action to drive user interaction.</p>
-        <div class="card-meta">
-          <button class="card-cta" onclick="alert('Primary CTA clicked')">Get started</button>
-          <button class="card-cta secondary" onclick="alert('Learn more clicked')">Learn more</button>
+        <div class="card-media icon" aria-hidden="true">ICON</div>
+        <div class="card-content">
+          <h2 id="card1-title" class="card-title">
+            Build beautiful UIs faster
+          </h2>
+          <p class="card-desc">
+            A concise card component pattern with clear hierarchy — title,
+            description, and a prominent call-to-action to drive user
+            interaction.
+          </p>
+          <div class="card-meta">
+            <button class="card-cta" onclick="alert('Primary CTA clicked')">
+              Get started
+            </button>
+            <button
+              class="card-cta secondary"
+              onclick="alert('Learn more clicked')"
+            >
+              Learn more
+            </button>
+          </div>
         </div>
       </article>
 
       <article class="card" role="article" aria-labelledby="card2-title">
-        <div class="card-hero" style="background:linear-gradient(135deg,#fff0f6,#fff7f3);color:#db2777">IMG</div>
-        <h2 id="card2-title" class="card-title">Marketing ready</h2>
-        <p class="card-desc">Ship marketing pages and feature promos with a single flexible card component that adapts to content and layout.</p>
-        <div class="card-meta">
-          <button class="card-cta" onclick="alert('Sign up clicked')">Sign up</button>
+        <div class="card-media image" aria-hidden="true">
+          <img src="https://picsum.photos/800/320" alt="Decorative image" />
+        </div>
+        <div class="card-content">
+          <h2 id="card2-title" class="card-title">Marketing ready</h2>
+          <p class="card-desc">
+            Ship marketing pages and feature promos with a single flexible card
+            component that adapts to content and layout.
+          </p>
+          <div class="card-meta">
+            <button class="card-cta" onclick="alert('Sign up clicked')">
+              Sign up
+            </button>
+          </div>
         </div>
       </article>
     </main>
